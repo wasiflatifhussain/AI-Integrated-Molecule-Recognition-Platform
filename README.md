@@ -11,6 +11,6 @@ A dataset of real molecules are generated that are cross-checked for validity us
 
 Using Graph Convolutional Neural Networks, molecule integrity is predicted using graph matrices.
 
-# More information and an updated README File will be available soon.
+### More information and an updated README File will be available soon.
 
 
