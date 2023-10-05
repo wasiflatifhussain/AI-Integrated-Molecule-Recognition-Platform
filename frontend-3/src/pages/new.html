@@ -1,0 +1,876 @@
+<!DOCTYPE HTML>
+<!--
+	Retrospect by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+
+<head>
+    <title>Predict - Deep4Chem at KU</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/static/assets/css/top_navi.css" />
+    <link rel="stylesheet" href="/static/JSME/jsme/gwt/chrome/chrome.css" />
+    <link rel="stylesheet" href="/static/JSME/jsme/g%60wt/chrome/mosaic.css" />
+    <link rel="stylesheet" href="/static/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="/static/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/assets/css/main.css" />
+    <link rel="stylesheet" href="/static/assets/css/modal-dialog.css" />
+    <link rel="stylesheet" href="/static/assets/css/pace.css" />
+    <link rel="shortcut icon" href="/static/favicon.ico" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177073422-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-177073422-1');
+    </script>
+</head>
+
+<body style="padding-top: 0em;">
+
+    <!-- Header -->
+    <header id="header" style="position:relative;">
+        <h1><a href="/">Deep4Chem</a></h1>
+
+        <!--<a href="/login">Login</a>-->
+
+        <a href="#nav">Menu</a>
+    </header>
+
+    <!-- Nav -->
+    <nav id="nav">
+        <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="how_to_use">How To Use</a></li>
+            <li><a href="database">Database</a></li>
+            <li><a href="predict">Optical Property</a></li>
+            <li><a href="DeepHL">DeepHL</a></li>
+            <li><a href="DeepEnergy">DeepEnergy</a></li>
+            <li><a href="search">Search Molecules</a></li>
+            <li><a href="Scientific_Advisory">Scientific Advisory</a></li>
+
+
+        </ul>
+    </nav>
+    <!--topnav-->
+    <div id="topnav" style="padding-top: 0em;">
+        <a href="/">Home</a>
+        <a href="how_to_use">How To Use</a>
+        <a href="database">Database</a>
+        <a class="active" href="predict">Optical Property</a>
+        <a href="DeepHL">DeepHL</a>
+        <a href="DeepEnergy">DeepEnergy</a>
+        <a href="search">Search Molecules</a>
+        <a href="Scientific_Advisory">Scientific Advisory</a>
+
+
+
+    </div>
+    <!-- Main -->
+    <section id="main" class="wrapper">
+        <div class="container">
+
+            <header class="major special">
+                <h2>Prediction of Optical Properties</h2>
+                <p><b style="color:red;"> Commercial uses are strictly prohibited.</b></p>
+                <a href="https://pubs.acs.org/doi/10.1021/jacsau.1c00035" target="_blank"><I>JACS Au</I>, <B>1</B>, 4,
+                    427–438 (2021)</a></br>
+                <a href="https://www.deep4chem.com" target="_blank"><b style="font-size:large;">More Accurate Model at
+                        Deep4Chem </b></a>
+            </header>
+
+
+            <div class="modal fade" id="drawingbox">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content" style="width:650px; height:520px;">
+                        <div class="modal-body" style="width:600px; height:430px;">
+                            <div id="jsme_container" style="margin:auto">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="setSmilesText();"
+                                data-dismiss="modal">Finish drawing</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<a href="#" class="image fit"><img src="/static/images/pic11.jpg" height="273" alt="" /></a>-->
+            <table class="table table-borderless table-nonfluid">
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: middle; text-align:left">Chromophore (SMILES) : </td>
+                        <td><input id="chromophore" maxlength="300" size="20" type="text"></td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#drawingbox"
+                                onclick="drawBox('chromophore')"
+                                style="vertical-align: middle; margin-left:10px">Draw<span
+                                    class="icon fa-pencil"></span></button></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle; text-align:left">Solvent (SMILES) : </td>
+                        <td><input id="solvent" maxlength="300" size="20" type="text"></td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#drawingbox"
+                                onclick="drawBox('solvent')" style="margin-left:10px">Draw<span
+                                    class="icon fa-pencil"></span></button>
+                        </td>
+                        <td>
+                            <select id="id-solselect" name="solselect" style="text-align-last:center"
+                                onchange="chageSolSelect()">
+                                <option value="none">===Select Solvent===</option>
+                                <option value="none">Direct Input</option>
+                                <option value="gas">Gas</option>
+                                <option value="solid">Solid</option>
+                                <option value="dichloromethane">Dichloromethane</option>
+                                <option value="acetonitrile">Acetonitrile</option>
+                                <option value="Toluene">Toluene</option>
+                                <option value="chloroform">Chloroform</option>
+                                <option value="THF">THF</option>
+                                <option value="methanol">Methanol</option>
+                                <option value="ethanol">Ethanol</option>
+                                <option value="DMSO">DMSO</option>
+                                <option value="cyclohexane">Cyclohexane</option>
+                                <option value="water">Water</option>
+                                <option value="DMF">DMF</option>
+                                <option value="hexane">Hexane</option>
+                                <option value="ethylacetate">Ethyl Acetate</option>
+                                <option value="14dioxane">1,4-dioxane</option>
+                                <option value="acetone">Acetone</option>
+                                <option value="benzene">Benzene</option>
+                                <option value="ipropanol">i-propanol</option>
+                                <option value="diethylether">Diethylether</option>
+                                <option value="nbutanol">n-butanol</option>
+                                <option value="npropanol">n-propanol</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-borderless table-nonfluid">
+                <tbody>
+                    <tr id="mol_wrapper" style>
+                        <td colspan="2" style="text-align:center;">
+                            <img id="chm_image" src="/static/draw/normal.png">
+                        </td>
+                        <td colspan="2" style="text-align:center;">
+                            <img id="sol_image" src="/static/draw/normal.png">
+                        </td>
+                </tbody>
+            </table>
+            <ul class="actions">
+                <button id='runButton' type="button" class="button alt">Run</button>
+            </ul>
+            <span id="colorpred" style="display:none;">
+
+                <hr>
+                <h1 style="text-align: center; font-size: 2.2em;">Result</h1>
+                <hr>
+                <div style="float:right; margin-bottom:22px"><button id='reportButton' type="button"
+                        class="button">Download Report</button></div>
+                <h2 style="text-align: center; margin-top:120px; font-size: 1.8em;">Seven Optical Properties</h2>
+
+
+                <table class="table table-borderless table-nonfluid" style="margin-bottom:100px;">
+                    <tbody>
+                        <tr>
+                            <th style="vertical-align: middle; text-align:center">Absorption peak (nm)</th>
+                            <th style="vertical-align: middle; text-align:center">FWHM of Abs. (cm<sup>-1</sup>)</th>
+                            <th style="vertical-align: middle; text-align:center">Extin. Coeff. (log (&epsilon;
+                                /mol<sup>-1</sup> dm<sup>3</sup> cm<sup>-1</sup>))</th>
+                            <th style="vertical-align: middle; text-align:center">Emission peak (nm)</th>
+                            <th style="vertical-align: middle; text-align:center">FWHM of Emi. (cm<sup>-1</sup>)</th>
+                            <th style="vertical-align: middle; text-align:center">PLQY</th>
+                            <th style="vertical-align: middle; text-align:center">Lifetime (ns)</th>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle; text-align:center">
+                                <p id="Abs" style="margin:0"></p>
+                            </td>
+                            <td style="vertical-align: middle; text-align:center">
+                                <p id="FWHM_Abs" style="margin:0"></p>
+                            </td>
+                            <td style="vertical-align: middle; text-align:center">
+                                <p id="Extin" style="margin:0"></p>
+                            </td>
+                            <td style="vertical-align: middle; text-align:center">
+                                <p id="Emi" style="margin:0"></p>
+                            </td>
+                            <td style="vertical-align: middle; text-align:center">
+                                <p id="FWHM_Emi" style="margin:0"></p>
+                            </td>
+                            <td style="vertical-align: middle; text-align:center">
+                                <p id="PLQY" style="margin:0"></p>
+                            </td>
+                            <td style="vertical-align: middle; text-align:center">
+                                <p id="Lifetime" style="margin:0"></p>
+                            </td>
+
+
+                    </tbody>
+                </table>
+                <h2 style="text-align: center; font-size: 1.8em;">Spectra</h2>
+                <div style="float:left; margin-bottom:100px; width:100%;">
+                    <div id="specPlot" style="width: 550px; height: 350px; float:left;"></div>
+                    <div id="TRFPlot" style="width: 550px; height: 350px; float:right;"></div>
+                </div>
+                <hr>
+                <h2 style="text-align: center; font-size: 1.8em;">Color</h2>
+                <table class="table" style="width:70%; height:350px; float:left;">
+                    <tbody>
+                        <tr>
+                            <td colspan='4' style="vertical-align: middle;width:70pt;text-align:center">Daylight</td>
+                            <td colspan='4' style="vertical-align: middle;width:70pt;text-align:center">Emission</td>
+                        </tr>
+                        <tr>
+                            <td colspan='4' style="vertical-align: middle;width:70pt;">
+                                <div id="abscolor" style="background-color:black;width:100%;height:50px;"></div>
+                            </td>
+                            <td colspan='4' style="vertical-align: middle;width:70pt;">
+                                <div id="emicolor" style="background-color:black;width:100%;height:50px;"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan='2' style="vertical-align: middle;width:70pt;text-align:center">RGB</td>
+                            <td colspan='2' style="vertical-align: middle;width:70pt;text-align:center">CIE</td>
+                            <td colspan='2' style="vertical-align: middle;width:70pt;text-align:center">RGB</td>
+                            <td colspan='2' style="vertical-align: middle;width:70pt;text-align:center">CIE</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;width:70pt;text-align:center">R</td>
+                            <td id="abs_r" style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                            <td style="vertical-align: middle;width:70pt;text-align:center">X</td>
+                            <td id="abs_x" style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                            <td style="vertical-align: middle;width:70pt;text-align:center">R</td>
+                            <td id="emi_r" style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                            <td style="vertical-align: middle;width:70pt;text-align:center">X</td>
+                            <td id="emi_x" style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;width:70pt;text-align:center">G</td>
+                            <td id="abs_g" style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                            <td style="vertical-align: middle;width:70pt;text-align:center">Y</td>
+                            <td id="abs_y" style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                            <td style="vertical-align: middle;width:70pt;text-align:center">G</td>
+                            <td id="emi_g" style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                            <td style="vertical-align: middle;width:70pt;text-align:center">Y</td>
+                            <td id="emi_y" style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;width:70pt;text-align:center">B</td>
+                            <td id="abs_b" style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                            <td style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                            <td style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                            <td style="vertical-align: middle;width:70pt;text-align:center">B</td>
+                            <td id="emi_b" style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                            <td style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                            <td style="vertical-align: middle;width:70pt;text-align:center"> </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="CIEPlot" style="width: 300px; height: 350px; margin: 0 auto; float:left;"></div>
+            </span>
+
+        </div>
+    </section>
+    <footer id="footer">
+        <i class="img"><a href="http://www.korea.ac.kr/" target="_blank"><img src="/static/images/KULogo.gif" alt=""
+                    width="100" height="100" style="margin-right: 20px;" /></a></i>
+        <i class="img"><a href="http://chem.korea.ac.kr/" target="_blank"><img src="/static/images/chem_logo.png" alt=""
+                    width="176" height="100" style="margin-right: 20px;" /></a></i>
+        <i class="img"><a href="http://rins.korea.ac.kr/" target="_blank"><img src="/static/images/rins_logo.png" alt=""
+                    width="136" height="100" /></a></i>
+        <i class="img"><a href="https://ultrafastspec.wixsite.com/spark" target="_blank"><img
+                    src="/static/images/UFSLAB_Logo.png" alt="" width="160" height="100"
+                    style="margin-left: 20px; margin-right: 20px;" /></a></i>
+        <i class="img"><a href="" target="_blank"><img src="/static/images/Dc_ci.png" alt="" width="100"
+                    height="100" /></a></i>
+        <p>Contact us: &emsp;deep4chem@gmail.com<br>
+            02841 서울특별시 성북구 안암로 145 고려대학교 아산이학관 223호<br>
+            Asan Science Building RM 223, 145 Anam-ro Seongbuk-gu Seoul, 02841, Republic of Korea<br>
+            Copyright(c) 2020 Korea University, Department of Chemistry, UFSLab. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="/static/assets/js/skel.min.js"></script>
+    <script src="/static/assets/js/util.js"></script>
+    <script src="/static/assets/js/pace.js"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="/static/assets/js/main.js"></script>
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/static/JSME/jsme/jsme.nocache.js"></script>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <!--<script src="/static/assets/js/specplot.js"></script>-->
+    <script type="text/javascript">
+        $("#chromophore").change(function () {
+            console.log($(this).val());
+            $.ajax({
+                url: '/draw_chm',
+                data: {
+                    chm: $('#chromophore').val()
+                },
+                dataType: 'JSON',
+                type: 'GET',
+                success: function (data) {
+                    $("#chm_image").prop("src", data.result);
+                },
+                error: function (data) {
+                    alert("wrong smiles");
+                }
+            });
+        });
+        $("#solvent").change(function () {
+            $.ajax({
+                url: '/draw_sol',
+                data: {
+                    sol: $('#solvent').val()
+                },
+                dataType: 'JSON',
+                type: 'GET',
+                success: function (data) {
+                    $("#sol_image").attr("src", data.result);
+                },
+                error: function (data) {
+                    alert("wrong smiles");
+                }
+            });
+        });
+
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie != '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = jQuery.trim(cookies[i]);
+                            // Does this cookie string begin with the name we want?
+                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+                if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                    // Only send the token to relative URLs i.e. locally.
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                }
+            }
+        });
+        $(function () {
+            $('#reportButton').click(function () {
+                $.ajax({
+                    url: '/make_report',
+                    data: {
+                        chm: $('#chromophore').val(),
+                        sol: $('#solvent').val()
+                    },
+                    page: 'pred',
+                    dataType: 'JSON',
+                    type: 'GET',
+                    success: function (data) {
+                        var openNewWindow = window.open("about:blank");
+                        openNewWindow.location.href = '/pdf/' + data.result;
+                    }
+                })
+            })
+        });
+
+        $(function () {
+            $('#runButton').click(function () {
+                $.ajax({
+                    url: '/predict_prop',
+                    data: {
+                        chm: $('#chromophore').val(),
+                        sol: $('#solvent').val(),
+                        password: "ufslab223",
+                        page: 'Basic',
+                    },
+                    dataType: 'JSON',
+                    type: 'GET',
+                    success: function (data) {
+                        if (data.Abs == 'fail') { alert("Wrong Password\nTo get password, contact: spark8@korea.ac.kr") }
+                        else {
+                            $("#Abs").text(data.Abs);
+                            $("#FWHM_Abs").text(data.FWHM_Abs);
+                            $("#Emi").text(data.Emi);
+                            $("#FWHM_Emi").text(data.FWHM_Emi);
+                            $("#Lifetime").text(data.Lifetime);
+                            $("#PLQY").text(data.PLQY);
+                            $("#Extin").text(data.Extin);
+                            $("#abs_r").text(data.Abs_data['Abs_R']);
+                            $("#abs_g").text(data.Abs_data['Abs_G']);
+                            $("#abs_b").text(data.Abs_data['Abs_B']);
+                            $("#abs_x").text(data.Abs_data['Abs_X']);
+                            $("#abs_y").text(data.Abs_data['Abs_Y']);
+                            $("#emi_r").text(data.Emi_data['Emi_R']);
+                            $("#emi_g").text(data.Emi_data['Emi_G']);
+                            $("#emi_b").text(data.Emi_data['Emi_B']);
+                            $("#emi_x").text(data.Emi_data['Emi_X']);
+                            $("#emi_y").text(data.Emi_data['Emi_Y']);
+                            var abscolor = document.getElementById("abscolor");
+                            var emicolor = document.getElementById("emicolor");
+                            abscolor.style.backgroundColor = data.Abs_data['rgb'];
+                            emicolor.style.backgroundColor = data.Emi_data['rgb'];
+                            var colorpred = document.getElementById("colorpred");
+                            if (colorpred.style.display === "none") {
+                                colorpred.style.display = "inline";
+                            };
+
+
+
+                            var chart,
+                                chart = new Highcharts.Chart({
+                                    chart: {
+                                        renderTo: 'specPlot',
+                                        zoomType: 'xy',
+                                        defaultSeriesType: 'line',
+                                        backgroundColor: null
+                                    },
+                                    title: {
+                                        text: "Electronic Spectrum",
+                                        style: { "fontFamily": "Arial", "fontSize": "21px" }
+                                    },
+                                    credits: {
+                                        enabled: false,
+                                        href: "/",
+                                        text: "Deep4Chem",
+                                        position: {
+                                            align: 'right',
+                                            x: -15,
+                                            verticalAlign: 'bottom',
+                                            y: -60,
+                                        }
+                                    },
+                                    xAxis: {
+                                        title: {
+                                            enabled: true,
+                                            text: 'Wavelength (nm)',
+                                            style: { "fontFamily": "Arial", "fontSize": "17px" }
+                                        },
+                                        labels: {
+                                            style: { "fontFamily": "Arial", "fontSize": "13px" }
+                                        },
+                                        min: data.Abs_data['l_min'],
+                                        max: data.Emi_data['r_max'],
+
+                                        startOnTick: false,
+                                        endOnTick: false,
+                                        showFirstLabel: true,
+                                        showLastLabel: true,
+                                        maxPadding: 0.05,
+                                        gridLineWidth: 0.5,
+                                    },
+                                    yAxis: {
+                                        title: {
+                                            enabled: true,
+                                            text: 'Intensity (Norm.)',
+                                            style: { "fontFamily": "Arial", "fontSize": "17px" }
+                                        },
+                                        min: -0.05,
+                                        max: 1.05,
+                                        startOnTick: false,
+                                        endOnTick: false,
+                                        showFirstLabel: true,
+                                        showLastLabel: true,
+                                        maxPadding: 0.05,
+                                        gridLineWidth: 0.5,
+                                        labels: { formatter: function () { return this.value; }, style: { "fontFamily": "Arial", "fontSize": "13px" } }
+                                    },
+                                    tooltip: {
+                                        formatter: function () {
+                                            return this.x.toFixed(2) + 'nm, ' + (this.y).toFixed(3);
+                                        }
+                                    },
+                                    legend: {
+                                        enabled: true,
+                                        align: 'right',
+                                        verticalAlign: 'top',
+                                        layout: 'vertical',
+                                        itemStyle: { "fontFamily": "Arial", "fontSize": "13px" },
+                                        floating: true,
+                                        x: 0,
+                                        y: 20,
+                                    },
+                                    plotOptions: {
+                                        line: {
+                                            lineWidth: 1,
+                                            marker: {
+                                                enabled: false,
+                                                states: {
+                                                    hover: {
+                                                        enabled: true,
+                                                        radius: 5
+                                                    }
+                                                }
+                                            },
+                                            shadow: false,
+                                            states: {
+                                                hover: {
+                                                    lineWidth: 1
+                                                }
+                                            }
+                                        },
+                                    },
+                                    series: [
+                                        {
+                                            name: 'Absorption',
+                                            color: 'rgba(83, 83, 230, 1.0)',
+                                            pointInterval: 0.1,
+                                            pointStart: 50,
+                                            data: data.Abs_spec,
+                                        }, {
+                                            name: 'Emission',
+                                            color: 'rgba(223, 83, 83, 1.0)',
+                                            pointInterval: 0.1,
+                                            pointStart: 50,
+                                            data: data.Emi_spec,
+                                        }]
+                                });
+
+                            var chart2,
+                                chart2 = new Highcharts.Chart({
+                                    chart: {
+                                        renderTo: 'TRFPlot',
+                                        zoomType: 'xy',
+                                        defaultSeriesType: 'line',
+                                        backgroundColor: null
+                                    },
+                                    title: {
+                                        text: "Time-Resolved Photoluminescence (TRPL)",
+                                        style: { "fontFamily": "Arial", "fontSize": "21px" }
+                                    },
+                                    credits: {
+                                        enabled: false,
+                                        href: "/",
+                                        text: "Deep4Chem",
+                                        position: {
+                                            align: 'right',
+                                            x: -15,
+                                            verticalAlign: 'bottom',
+                                            y: -60,
+                                        }
+                                    },
+                                    xAxis: {
+                                        title: {
+                                            enabled: true,
+                                            text: data.TRF_unit,
+                                            style: { "fontFamily": "Arial", "fontSize": "17px" }
+                                        },
+                                        labels: {
+                                            style: { "fontFamily": "Arial", "fontSize": "13px" }
+                                        },
+                                        min: -data.Lifetime,
+                                        startOnTick: false,
+                                        endOnTick: false,
+                                        showFirstLabel: true,
+                                        showLastLabel: true,
+                                        maxPadding: 0.05,
+                                        gridLineWidth: 0.5,
+                                    },
+                                    yAxis: {
+                                        title: {
+                                            enabled: true,
+                                            text: 'Intensity (Norm.)',
+                                            style: { "fontFamily": "Arial", "fontSize": "17px" }
+                                        },
+                                        min: -0.05,
+                                        max: 1.05,
+                                        startOnTick: false,
+                                        endOnTick: false,
+                                        showFirstLabel: true,
+                                        showLastLabel: true,
+                                        maxPadding: 0.05,
+                                        gridLineWidth: 0.5,
+                                        labels: { formatter: function () { return this.value; }, style: { "fontFamily": "Arial", "fontSize": "13px" } }
+                                    },
+                                    tooltip: {
+                                        formatter: function () {
+                                            return this.x.toFixed(2) + ', ' + (this.y).toFixed(3);
+                                        }
+                                    },
+                                    legend: {
+                                        enabled: true,
+                                        align: 'right',
+                                        verticalAlign: 'top',
+                                        layout: 'vertical',
+                                        itemStyle: { "fontFamily": "Arial", "fontSize": "13px" },
+                                        floating: true,
+                                        x: 0,
+                                        y: 100,
+                                    },
+                                    plotOptions: {
+                                        line: {
+                                            lineWidth: 3,
+                                            marker: {
+                                                enabled: false,
+                                                states: {
+                                                    hover: {
+                                                        enabled: true,
+                                                        radius: 5
+                                                    }
+                                                }
+                                            },
+                                            shadow: false,
+                                            states: {
+                                                hover: {
+                                                    lineWidth: 1
+                                                }
+                                            }
+                                        },
+                                    },
+                                    series: [
+                                        {
+                                            name: 'TRPL Signal',
+                                            color: 'rgba(83, 83, 230, 1.0)',
+                                            pointInterval: data.TRF_inv,
+                                            pointStart: data.TRF_i,
+                                            data: data.TRFSignal,
+                                        }]
+                                });
+
+                            var chart3,
+                                chart3 = new Highcharts.Chart({
+                                    chart: {
+                                        renderTo: 'CIEPlot',
+                                        zoomType: 'xy',
+                                        defaultSeriesType: 'scatter',
+                                        backgroundColor: null,
+                                        plotBackgroundImage: 'http://deep4chem.korea.ac.kr/cie'
+                                    },
+                                    title: {
+                                        text: "CIE 1931 Space",
+                                        style: { "fontFamily": "Arial", "fontSize": "21px" }
+                                    },
+                                    credits: {
+                                        enabled: false,
+                                        href: "/",
+                                        text: "Deep4Chem",
+                                        position: {
+                                            align: 'right',
+                                            x: -15,
+                                            verticalAlign: 'bottom',
+                                            y: -60,
+                                        }
+                                    },
+                                    xAxis: {
+                                        title: {
+                                            enabled: true,
+                                            text: 'X',
+                                            style: { "fontFamily": "Arial", "fontSize": "17px" }
+                                        },
+                                        labels: {
+                                            style: { "fontFamily": "Arial", "fontSize": "13px" }
+                                        },
+                                        min: 0,
+                                        max: 0.735,
+                                        startOnTick: false,
+                                        endOnTick: false,
+                                        showFirstLabel: true,
+                                        showLastLabel: true,
+                                        maxPadding: 0.05,
+                                        gridLineWidth: 0.5,
+                                    },
+                                    yAxis: {
+                                        title: {
+                                            enabled: true,
+                                            text: 'Y',
+                                            style: { "fontFamily": "Arial", "fontSize": "17px" }
+                                        },
+                                        min: 0,
+                                        max: 0.84,
+                                        startOnTick: false,
+                                        endOnTick: false,
+                                        showFirstLabel: true,
+                                        showLastLabel: true,
+                                        maxPadding: 0.05,
+                                        gridLineWidth: 0.5,
+                                        labels: { formatter: function () { return this.value; }, style: { "fontFamily": "Arial", "fontSize": "13px" } }
+                                    },
+                                    tooltip: {
+                                        formatter: function () {
+                                            return this.x.toFixed(2) + ', ' + (this.y).toFixed(3);
+                                        }
+                                    },
+                                    legend: {
+                                        enabled: true,
+                                        align: 'right',
+                                        verticalAlign: 'top',
+                                        layout: 'vertical',
+                                        itemStyle: { "fontFamily": "Arial", "fontSize": "13px" },
+                                        floating: true,
+                                        x: 0,
+                                        y: 50,
+                                    },
+                                    plotOptions: {
+                                        scatter: {
+                                            marker: {
+                                                radius: 5,
+                                                lineWidth: 1,
+                                                lineColor: 'rgb(0,0,0)',
+                                                states: {
+                                                    hover: {
+                                                        enabled: true,
+                                                        lineColor: 'rgb(100,100,100)'
+                                                    }
+                                                }
+                                            },
+                                            states: {
+                                                hover: {
+                                                    marker: {
+                                                        enabled: false
+                                                    }
+                                                }
+                                            },
+                                        }
+                                    },
+                                    series: [
+                                        {
+                                            name: 'Daylight',
+                                            color: 'rgba(83, 83, 230, 1.0)',
+                                            data: [[data.Abs_data['Abs_X'], data.Abs_data['Abs_Y']]]
+                                        }, {
+                                            name: 'Emission',
+                                            color: 'rgba(223, 83, 83, 1.0)',
+                                            data: [[data.Emi_data['Emi_X'], data.Emi_data['Emi_Y']]]
+                                        }]
+                                });
+                        };
+                    }
+                });
+            });
+        });
+
+
+
+
+
+        function jsmeOnLoad() {
+            jsmeApplet = new JSApplet.JSME("jsme_container", "565px", "400px");
+        };
+        function setSmilesText() {
+            var data = jsmeApplet.smiles();
+            document.getElementById(drawBoxId).value = data;
+            $("#" + drawBoxId).trigger("change");
+        };
+        function drawBox(id) {
+            setSmilesDrawing(id);
+            drawBoxId = id;
+
+        };
+        function setSmilesDrawing(id) {
+            var smi = $("#" + id).val();
+            if (smi) {
+                jsmeApplet.readGenericMolecularInput(smi);
+            } else {
+                jsmeApplet.reset();
+            };
+        };
+        function chageSolSelect() {
+            var SolSelect = document.getElementById("id-solselect");
+            var selectValue = SolSelect.options[SolSelect.selectedIndex].value;
+            if (selectValue == "none") { }
+            else if (selectValue == "gas") {
+                document.getElementById("solvent").value = "gas";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "dichloromethane") {
+                document.getElementById("solvent").value = "[H]C([H])(Cl)Cl";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "acetonitrile") {
+                document.getElementById("solvent").value = "CC#N";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "Toluene") {
+                document.getElementById("solvent").value = "CC1=CC=CC=C1";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "chloroform") {
+                document.getElementById("solvent").value = "[H]C(Cl)(Cl)Cl";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "THF") {
+                document.getElementById("solvent").value = "C1CCCO1";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "methanol") {
+                document.getElementById("solvent").value = "CO";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "ethanol") {
+                document.getElementById("solvent").value = "OCC";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "DMSO") {
+                document.getElementById("solvent").value = "O=S(C)C";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "cyclohexane") {
+                document.getElementById("solvent").value = "C1CCCCC1";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "water") {
+                document.getElementById("solvent").value = "[H]O";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "DMF") {
+                document.getElementById("solvent").value = "CN(C)C=O";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "hexane") {
+                document.getElementById("solvent").value = "CCCCCC";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "ethylacetate") {
+                document.getElementById("solvent").value = "CC(OCC)=O";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "14dioxane") {
+                document.getElementById("solvent").value = "O1CCOCC1";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "acetone") {
+                document.getElementById("solvent").value = "CC(C)=O";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "benzene") {
+                document.getElementById("solvent").value = "C1=CC=CC=C1";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "ipropanol") {
+                document.getElementById("solvent").value = "OC(C)C";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "diethylether") {
+                document.getElementById("solvent").value = "CCOCC";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "nbutanol") {
+                document.getElementById("solvent").value = "OCCCC";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "npropanol") {
+                document.getElementById("solvent").value = "OCCC";
+                $("#solvent").trigger("change");
+            }
+            else if (selectValue == "solid") {
+                document.getElementById("solvent").value = document.getElementById("chromophore").value;
+                $("#solvent").trigger("change");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

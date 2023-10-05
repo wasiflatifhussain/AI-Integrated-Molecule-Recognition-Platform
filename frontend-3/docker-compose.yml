@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+    client-react-ngnix:
+        container_name: client-react-nginx
+        network_mode: my-network
+        ports:
+            - '3000'
+        restart: unless-stopped
+        image: client-react-ngnix

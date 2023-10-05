@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8dc50616.css",
+    "main.js": "/static/js/main.28276ee0.js",
+    "static/media/homesign.png": "/static/media/homesign.503d225e30ec33316afa.png",
+    "static/media/helpsign.png": "/static/media/helpsign.dada29c598d538ba9eeb.png",
+    "static/media/loadingani.gif": "/static/media/loadingani.ab1adfd8dd8438bfd39a.gif",
+    "static/media/logprompt.png": "/static/media/logprompt.18636a1ddb16a4f51311.png",
+    "static/media/help2.png": "/static/media/help2.4736b06b5580429fb559.png",
+    "static/media/C12=CC=CC=C1N(C3=CC=CC=C3)C4=C2C=CC=C4.png": "/static/media/C12=CC=CC=C1N(C3=CC=CC=C3)C4=C2C=CC=C4.8f414153ab022f5d94a5.png",
+    "static/media/C12=CC=CC=C1N(C3=CC=CC=C3)C=C2.png": "/static/media/C12=CC=CC=C1N(C3=CC=CC=C3)C=C2.42ef10dfa2c0493ec1d9.png",
+    "static/media/C12=CC=CC=C1OC3=C2C=CC=C3.png": "/static/media/C12=CC=CC=C1OC3=C2C=CC=C3.7e59d4ecd3cf3f500fbf.png",
+    "static/media/Logo_of_the_TCL_Corporation.svg.png": "/static/media/Logo_of_the_TCL_Corporation.svg.6913e92933ff8ddfc202.png",
+    "static/media/C12=CC=CC=C1SC=C2.png": "/static/media/C12=CC=CC=C1SC=C2.955b500c463863241976.png",
+    "static/media/C12=CC=CC=C1OC=C2.png": "/static/media/C12=CC=CC=C1OC=C2.c91f3e89107db8271b91.png",
+    "static/media/C1=CC=CC=C1.png": "/static/media/C1=CC=CC=C1.85ad329106362054d157.png",
+    "static/media/C12=CC=CC=C1C=CC=C2.png": "/static/media/C12=CC=CC=C1C=CC=C2.1815c0df8555710b85b7.png",
+    "index.html": "/index.html",
+    "main.8dc50616.css.map": "/static/css/main.8dc50616.css.map",
+    "main.28276ee0.js.map": "/static/js/main.28276ee0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8dc50616.css",
+    "static/js/main.28276ee0.js"
+  ]
+}

@@ -1,0 +1,8 @@
+conda install -c rdkit rdkit==2018.09.3
+pip3 install torch torchvision torchaudio
+pip3 install dgl
+pip3 install dgllife
+
+
+
+

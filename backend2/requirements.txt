@@ -1,0 +1,1 @@
+pip3 install Flask matplotlib numpy pandas Pillow scikit_learn scipy tqdm joblib flask_cors

@@ -1,0 +1,25 @@
+Plan for Upload page-
+When user drags and drops a file,
+- first check if there are any other files present with that username. if so, remove it
+- then make a file with that username under upload folder
+- then send a request to backend
+- backend starts reading the file
+- each time reads 5000/10000 lines
+- calls the ai model on these
+- stores data in a result.csv file
+- each time, appends to this csv file
+- when returns results for upload, return by reading from csv file
+note: data size will never exceed the size of one csv file 
+
+For Structure Generation-
+- first check if any csv files with this username is present and if yes, remove them all
+- start generating the molecules, and appending them to csv files
+- make all the necessary csv files and store the datas
+- now make the call ai model part and when ai model called:
+- read csv file by csv file, and for each csv file,
+- generate a result file by username and start storing data
+- generate all data and at the end, return
+- in frontend, just read the result files and tell the total number of data results
+- allow download of data results all at once
+
+issue: model one does not take full dataset
